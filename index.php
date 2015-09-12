@@ -3,22 +3,31 @@ require 'vendor/autoload.php';
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
+$app->view(new \JsonApiView());
+$app->add(new \JsonApiMiddleware());
 
-$app->get('/', function () { //as closure
-    echo 'Hello World';
+$app->get('/', function() use ($app) {
+    $app->render(200,array(
+            'msg' => 'welcome to PraiseAPi!',
+        ));
 });
 
-$app->get('/message/', 'messageGet');
-$app->post('/praise/', 'praiseAdd');
+$app->get('/message/', function() use ($app) { messageGet($app); });
+$app->post('/praise/', function() use ($app){ praiseAdd($app);});
 
-function messageGet() {
-    $respJson=sprintf('{"status": "success", "user_name": "hoge", "message": ["hoge", "fuga"]}');
-    echo $respJson;
+function messageGet($app) {
+  $app->render(200, array(
+      'user_name' => 'hoge',
+      'message'   => array("hoge",  "fuga")
+    )
+  );
 }
 
-function praiseAdd() {
-    $respJson=sprintf('{"status": "success","user_name": "hoge"}');
-    echo $respJson;
+function praiseAdd($app) {
+    $app->render(200, array(
+        'user_name' => 'hoge'
+      )
+    );
 }
 
 $app->run();

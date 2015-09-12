@@ -1,5 +1,6 @@
 {
   "require": {
-      "slim/slim": "*"
+      "slim/slim": "*",
+      "entomb/slim-json-api": "dev-master"
   }
 }
