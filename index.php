@@ -8,11 +8,11 @@ $app->get('/', function () { //as closure
     echo 'Hello World';
 });
 
-$app->get('/message/:name', 'messageGet');
+$app->get('/message/', 'messageGet');
 $app->post('/praise/', 'praiseAdd');
 
-function messageGet($name) {
-    $respJson=sprintf('{"status": "success", "user_name": "%s", "message": ["hoge", "fuga"]}', $name);
+function messageGet() {
+    $respJson=sprintf('{"status": "success", "user_name": "hoge", "message": ["hoge", "fuga"]}');
     echo $respJson;
 }
 
