@@ -78,30 +78,28 @@ function selectMessages()
 
     // メッセージ数確認
     $messagesLength = count($messages);
-
     $selected = rand(0, $messagesLength - 1);
-
     return $messages[$selected];
 }
 
 function getImageURL()
 {
-  $img = getImage();
-  $URL = BASE_URL . IMAGE_PATH . $img;
-  return $URL;
+    $img = getImage();
+    $URL = BASE_URL . IMAGE_PATH . $img;
+    return $URL;
 }
 
 function getImage()
 {
-  $imagefiles = [];
-  $res_dir = opendir( './' . IMAGE_PATH );
-  while( $file_name = readdir( $res_dir ) ){
-    array_push($imagefiles, $file_name);
-  }
-  $imagelength = count($imagefiles);
-  $selected = rand(0, $imagelength - 1);
-  $imgfile = $imagefiles[$selected];
-  closedir( $res_dir );
+    $imagefiles = [];
+    $res_dir    = opendir('./' . IMAGE_PATH);
+    while ($file_name = readdir($res_dir)) {
+        array_push($imagefiles, $file_name);
+    }
+    $imagelength = count($imagefiles);
+    $selected    = rand(0, $imagelength - 1);
+    $imgfile     = $imagefiles[$selected];
+    closedir($res_dir);
 
-  return $imgfile;
+    return $imgfile;
 }
