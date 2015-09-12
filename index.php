@@ -36,7 +36,7 @@ $app->get('/functest', 'selectMessages');
 $app->post(
     '/users/',
     function () use ($app) {
-    
+
         if ($app->request->post('user') !== '') {
             addUser($app);
         }
@@ -99,7 +99,7 @@ function addUser($app)
     $sth = $dbh->prepare(CHECK_USER);
     $sth->execute(array(':username'=>$app->request->post('user')));
     $result = $sth->fetchAll();
-    
+
     // 結果がない場合はユーザ追加
     if (count($result) === 0) {
         $addUserQuery = $dbh->prepare(ADD_USER);
@@ -112,9 +112,9 @@ function addUser($app)
         );
         return;
     }
-    
+
     $dbh = null;
-    
+
     $app->render(
         400,
         array(
@@ -125,7 +125,7 @@ function addUser($app)
 function getImageURL()
 {
     $img = getImage();
-    $URL = BASE_URL . IMAGE_PATH . $img;
+    $URL = $img;
     return $URL;
 }
 
