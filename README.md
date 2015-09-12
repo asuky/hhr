@@ -4,5 +4,5 @@
 
 | method | path     | response |
 | ------ | -------- | -------- |
-| GET    | /message | resp     |
-| POST   | /praise  | resp     |
+| GET    | /message/name | {{user_name: name, "message":["hoge", "fuga"]} |
+| POST   | /praise  | resp    |

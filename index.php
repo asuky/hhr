@@ -8,10 +8,11 @@ $app->get('/', function () { //as closure
     echo 'Hello World';
 });
 
-$app->get('/message', 'helloName'); //classic php style with function name
+$app->get('/message/:name', 'messageGet'); //classic php style with function name
 
-function helloName($name) {
-    echo "Hello $name";
+function messageGet($name) {
+    $respJson=sprintf('{{user_name: %s, "message":["hoge", "fuga"]}', $name);
+    echo $respJson;
 }
 
 $app->run();
