@@ -48,7 +48,7 @@ function messageGet($app)
 
 function praiseAdd($app)
 {
-    $ret = file_put_contents(__DIR__ . DS. MESSAGES_FILENAME , 'hoge' );
+    $ret = file_put_contents(__DIR__ . DS. MESSAGES_FILENAME , 'hoge', FILE_APPEND | LOCK_EX );
     if($ret===FALSE) {
       $app->render(
         500,
