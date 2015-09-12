@@ -48,6 +48,15 @@ function messageGet($app)
 
 function praiseAdd($app)
 {
+    $ret = file_put_contents(__DIR__ . DS. MESSAGES_FILENAME , 'hoge' );
+    if($ret===FALSE) {
+      $app->render(
+        500,
+        array(
+          'description' => 'insert error'
+        )
+      );
+    }
     $app->render(
         200,
         array(
