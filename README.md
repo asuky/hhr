@@ -2,6 +2,7 @@
 
 ## API
 
-| GET  | /message | {} |
-| ---- | -------- | -- |
-| POST | /message | {} |
+| method | path     | response |
+| ------ | -------- | -------- |
+| GET    | /message | resp     |
+| POST   | /praise  | resp     |
