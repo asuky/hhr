@@ -12,7 +12,7 @@ $app->get('/message/:name', 'messageGet');
 $app->post('/praise/', 'praiseAdd');
 
 function messageGet($name) {
-    $respJson=sprintf('{"status": "success", "user_name": %s, "message":["hoge", "fuga"]}', $name);
+    $respJson=sprintf('{"status": "success", "user_name": "%s", "message": ["hoge", "fuga"]}', $name);
     echo $respJson;
 }
 
