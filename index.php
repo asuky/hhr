@@ -93,35 +93,6 @@ function selectMessages()
     return $messages[$selected];
 }
 
-function addUser($app)
-{
-    $dbh = new PDO(USER_DSN);
-    $sth = $dbh->prepare(CHECK_USER);
-    $sth->execute(array(':username'=>$app->request->post('user')));
-    $result = $sth->fetchAll();
-
-    // 結果がない場合はユーザ追加
-    if (count($result) === 0) {
-        $addUserQuery = $dbh->prepare(ADD_USER);
-        $addUserQuery->execute(array(':username'=>$app->request->post('user'), ':password'=>'pass'));
-        $app->render(
-            201,
-            array(
-                'user_name' => $app->request->post('user'),
-            )
-        );
-        return;
-    }
-
-    $dbh = null;
-
-    $app->render(
-        400,
-        array(
-            'user_name' => $app->request->post('user'),
-        )
-    );
-}
 function getImageURL()
 {
     $img = getImage();
