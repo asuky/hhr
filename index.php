@@ -19,9 +19,10 @@ $app->post('/praise/', function() use ($app){ praiseAdd($app);});
 $app->get('/functest', 'selectMessages');
 
 function messageGet($app) {
+  $msg = selectMessages();
   $app->render(200, array(
       'user_name' => 'hoge',
-      'message'   => array("hoge",  "fuga")
+      'message'   => $msg
     )
   );
 }
@@ -38,11 +39,11 @@ function selectMessages()
 {
     // メッセージを全部呼びこむ
     $messages = file(__DIR__ . DS . MESSAGES_FILENAME);
-    
+
     // メッセージ数確認
     $messagesLength = count($messages);
-    
+
     $selected = rand(0, $messagesLength-1);
-    
+
     return $messages[$selected];
 }
