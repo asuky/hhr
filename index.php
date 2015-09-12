@@ -28,7 +28,7 @@ $app->get(
 $app->post(
     '/praise/',
     function () use ($app) {
-        addUser($app);
+        praiseAdd($app);
     }
 );
 
