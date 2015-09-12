@@ -48,6 +48,17 @@ function messageGet($app)
 
 function praiseAdd($app)
 {
+    $jsonPosted = $app->request->getBody();
+    $deserialize = json_decode($jsonPosted);
+    $ret = file_put_contents(__DIR__ . DS . MESSAGES_FILENAME, $deserialize->{'message'} . "\n", FILE_APPEND | LOCK_EX);
+    if ($ret === FALSE) {
+        $app->render(
+            500,
+            array(
+                'description' => 'insert error'
+            )
+        );
+    }
     $app->render(
         200,
         array(
