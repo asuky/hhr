@@ -47,17 +47,30 @@ $app->post(
 function messageGet($app)
 {
     $msg = selectMessages();
+    $imageurl = getImageURL();
     $app->render(
         200,
         array(
             'user_name' => 'hoge',
-            'message' => $msg
+            'message' => $msg,
+            'image' => $imageurl
         )
     );
 }
 
 function praiseAdd($app)
 {
+    $jsonPosted = $app->request->getBody();
+    $deserialize = json_decode($jsonPosted);
+    $ret = file_put_contents(__DIR__ . DS . MESSAGES_FILENAME, $deserialize->{'message'} . "\n", FILE_APPEND | LOCK_EX);
+    if ($ret === FALSE) {
+        $app->render(
+            500,
+            array(
+                'description' => 'insert error'
+            )
+        );
+    }
     $app->render(
         200,
         array(
@@ -108,4 +121,25 @@ function addUser($app)
             'user_name' => $app->request->post('user'),
         )
     );
+}
+function getImageURL()
+{
+    $img = getImage();
+    $URL = BASE_URL . IMAGE_PATH . $img;
+    return $URL;
+}
+
+function getImage()
+{
+    $imagefiles = [];
+    $res_dir    = opendir('./' . IMAGE_PATH);
+    while ($file_name = readdir($res_dir)) {
+        array_push($imagefiles, $file_name);
+    }
+    $imagelength = count($imagefiles);
+    $selected    = rand(0, $imagelength - 1);
+    $imgfile     = $imagefiles[$selected];
+    closedir($res_dir);
+
+    return $imgfile;
 }
